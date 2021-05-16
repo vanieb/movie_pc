@@ -60,7 +60,7 @@
                     width="1%"
                     :style="item.confidential ? 'filter: blur(6.2px); ' : ''"
                   >
-                    <v-img src="../assets/images/a1.jpg" width="80"></v-img>
+                    <v-img :src="`${host}${item.image_url}`" width="80"></v-img>
                   </td>
                   <td
                     width="15%"
@@ -170,6 +170,7 @@ export default {
   data() {
     return {
       movies: [],
+      host: process.env.VUE_APP_API_URL.slice(0,-1),
       headers: [
         {
           sortable: false,

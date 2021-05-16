@@ -4,7 +4,7 @@
       <v-col cols="12" md="4" style="padding:0px;" v-for="i in artists" :key="i.title">
         <v-card flat class="rounded-0">
           <v-img
-            :src="i.image"
+            :src="`${host}${i.image_url}`"
             class="grey darken-4"
           ></v-img>
           <v-card-title class="title">
@@ -22,7 +22,8 @@ export default {
   components: {},
   data() {
     return {
-      artists: {}
+      artists: {},
+      host: process.env.VUE_APP_API_URL.slice(0,-1),
     };
   },
   created() {
