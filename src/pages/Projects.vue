@@ -116,11 +116,11 @@
                     </span>
                   </td>
                   <td
-                    width="8%"
+                    width="5%"
                     class="text-center"
                     :style="item.confidential ? 'filter: blur(6.2px); ' : ''"
                   >
-                    {{ item.investment }}/{{ item.return }}
+                    {{ item.investment/1000000 }}/{{ item.return/1000000 }}
                   </td>
                   <td
                     width="9%"
@@ -130,7 +130,7 @@
                     {{ item.payback }}
                   </td>
                   <td
-                    width="20%"
+                    width="10%"
                     class="text-center"
                     :style="item.confidential ? 'filter: blur(6.2px); ' : ''"
                   >
@@ -202,14 +202,14 @@ export default {
         },
         {
           sortable: false,
-          text: "Budget/Revenue",
+          text: "Budget/Revenue (in Million USD)",
           value: "investment",
           class: "white--text",
           align: "center",
         },
         {
           sortable: false,
-          text: "Lock in Period",
+          text: "Investment Returned in (month)",
           value: "payback",
           class: "white--text",
           align: "center",

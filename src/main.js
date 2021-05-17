@@ -6,7 +6,9 @@ import router from "./router";
 import axios from "axios";
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import "swiper/swiper-bundle.min.css";
+import Vue2Filters from 'vue2-filters'
 
+Vue.use(Vue2Filters)
 Vue.use(VueRouter);
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 
