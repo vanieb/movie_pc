@@ -70,8 +70,11 @@
                     <br />
                     <small>
                       Director: {{ item.director }}<br />
-                      Artists: {{ item.artists }}</small
-                    >
+                      <span v-if="item.actors.length > 20"
+                        >Artists: {{ item.actors | truncate(20, "...") }}</span
+                      >
+                      <span v-else>Artists: {{ item.actors }}</span>
+                    </small>
                   </td>
                   <td
                     width="18%"
@@ -170,7 +173,7 @@ export default {
   data() {
     return {
       movies: [],
-      host: process.env.VUE_APP_API_URL.slice(0,-1),
+      host: process.env.VUE_APP_API_URL.slice(0, -1),
       headers: [
         {
           sortable: false,
@@ -237,6 +240,11 @@ export default {
       sort: "",
       query: {},
     };
+  },
+  filters: {
+    truncate: function(text, length, suffix) {
+      return text.substring(0, length) + suffix;
+    },
   },
   watch: {
     $route: {

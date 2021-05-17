@@ -6,8 +6,9 @@
           <v-img
             :src="`${host}${i.image_url}`"
             class="grey darken-4"
+            contain
           ></v-img>
-          <v-card-title class="title">
+          <v-card-title class="title align-center">
             {{i.name}}
           </v-card-title>
         </v-card>

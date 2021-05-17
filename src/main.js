@@ -4,8 +4,11 @@ import vuetify from './plugins/vuetify';
 import VueRouter from "vue-router";
 import router from "./router";
 import axios from "axios";
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import "swiper/swiper-bundle.min.css";
 
 Vue.use(VueRouter);
+Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 
 Vue.config.productionTip = false
 
