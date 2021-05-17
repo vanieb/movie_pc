@@ -33,7 +33,7 @@
       </v-row>
     </v-container>
     <v-footer class="justify-center white--text" color="#032230">
-      <small>&#169; 2021 by rogers. Proudly created by wix.com</small>
+      <small>&#169; 2021 by BUDD ROGERS</small>
     </v-footer>
   </v-app>
 </template>
