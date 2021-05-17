@@ -1,6 +1,5 @@
 <template>
   <v-container class="pa-0 home" fluid>
-    {{video_url}}
     <video width="100%" height="400px;" controls>
       <source :src="video_url" type="video/mp4" :key="videoKey"/>
     </video>
