@@ -19,11 +19,13 @@
           </swiper-slide>
           <!-- <div class="swiper-pagination" slot="pagination"></div> -->
           <div
+            v-if="movies.length > 11"
             class="prev prev-change"
             slot="button-prev"
             @click="prev()"
           ></div>
           <div
+            v-if="movies.length > 11"
             class="next next-change"
             slot="button-next"
             @click="next()"
@@ -53,7 +55,6 @@ export default {
         show: false,
       },
       swiperOption: {
-        slidesPerView: 11,
         spaceBetween: 5,
         direction: "horizontal",
         navigation: {
@@ -75,11 +76,9 @@ export default {
   },
   methods: {
     getMovies() {
-      // let headers = {
-      //   "Content-Type": "application/json;charset=UTF-8",
-      // };
       axios.get(api.movies).then((data) => {
         this.movies = data.data.results;
+        this.$refs.swiper.$swiper.params.slidesPerView = this.movies.length > 11 ? 11 : this.movies.length
       });
     },
     showMovieTrailer(movie) {

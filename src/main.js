@@ -1,18 +1,19 @@
-import Vue from 'vue'
-import App from './App.vue'
-import vuetify from './plugins/vuetify';
+import Vue from "vue";
+import App from "./App.vue";
+import vuetify from "./plugins/vuetify";
 import VueRouter from "vue-router";
 import router from "./router";
 import axios from "axios";
-import VueAwesomeSwiper from 'vue-awesome-swiper'
+import VueAwesomeSwiper from "vue-awesome-swiper";
 import "swiper/swiper-bundle.min.css";
-import Vue2Filters from 'vue2-filters'
+import Vue2Filters from "vue2-filters";
+import { handleError } from "@/utils/handleError";
 
-Vue.use(Vue2Filters)
+Vue.use(Vue2Filters);
 Vue.use(VueRouter);
-Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
+Vue.use(VueAwesomeSwiper /* { default options with global component } */);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 let url = window.location.href;
 const HTTPS = process.env.HTTPS;
@@ -24,17 +25,7 @@ if (HTTPS && HTTPS.replace(/"/g, "") === "1") {
 const host = process.env.VUE_APP_API_URL;
 Vue.prototype.$http = axios;
 axios.options.root = host;
-axios.defaults.headers["Content-Type"] = "application/json;charset=UTF-8"
-
-// axios.defaults.headers.common["Authorization"] = `Bearer b1e8edcc-ffa8-499f-9dd7-856e364771b8`;
-// if (VueCookie.get("access_token")) {
-//   axios.defaults.headers.common["Authorization"] = `Bearer ${VueCookie.get(
-//     "access_token"
-//   )}`;
-// } else {
-//   axios.defaults.headers.common["Authorization"] = `Basic Zmlyc3QtY2xpZW50Om5vb25ld2lsbGV2ZXJndWVzcw==`
-//   axios.defaults.headers.common["Content-Type"] = "application/json;charset=UTF-8"
-// }
+axios.defaults.headers["Content-Type"] = "application/json;charset=UTF-8";
 
 axios.interceptors.response.use(
   (response) => {
@@ -48,8 +39,7 @@ axios.interceptors.response.use(
         },
       });
     } else {
-      console.log(response)
-      // return Promise.reject(handleError(response.data.message));
+      return Promise.reject(handleError(response.data.message));
     }
   },
   (error) => {
@@ -71,9 +61,8 @@ axios.interceptors.response.use(
   }
 );
 router.beforeEach((to, from, next) => {
-    next()
+  next();
 });
-
 
 router.afterEach((route) => {
   document.title = route.meta.title;
@@ -84,4 +73,3 @@ new Vue({
   vuetify,
   ...App,
 }).$mount("#app");
-

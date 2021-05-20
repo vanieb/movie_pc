@@ -1,5 +1,4 @@
 export function handleError(errors) {
-  console.log(errors)
   if (Array.isArray(errors)) {
     return errors.map(error => {
       if (typeof error === 'string') {

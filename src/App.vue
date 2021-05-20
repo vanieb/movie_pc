@@ -37,7 +37,7 @@
       </v-row>
     </v-container>
     <v-footer class="justify-center white--text" color="#032230">
-      <small>&#169; 2015 by BUDD ROGERS</small>
+      &#169; 2015 by BUDD ROGERS
     </v-footer>
   </v-app>
 </template>
