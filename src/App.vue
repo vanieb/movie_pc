@@ -3,7 +3,12 @@
     <v-app-bar color="#022C3F" dark prominent flat app>
       <v-container fluid>
         <v-layout class="justify-center pb-2">
-        <v-img src="./assets/images/h1.png" width="416 " height="20" contain></v-img>
+          <v-img
+            src="./assets/images/h1.png"
+            width="416 "
+            height="20"
+            contain
+          ></v-img>
         </v-layout>
         <h6 class="text-center">
           <small>
@@ -25,28 +30,29 @@
     </v-main>
     <v-container>
       <v-row class="align-center">
-        <v-col cols="12" sm="2">
-        </v-col>
-        <v-col v-for="i in 9" cols="12" sm="1" :key="i">
-          <v-img :src="require(`./assets/images/f${i}.png`)" contain height="41"></v-img>
+        <v-col cols="12" sm="2"> </v-col>
+        <v-col v-for="i in logos" cols="12" sm="1" :key="i.id">
+          <v-img :src="`${host}${i.image_url}`" contain height="41"></v-img>
         </v-col>
       </v-row>
     </v-container>
     <v-footer class="justify-center white--text" color="#032230">
-      <small>&#169; 2021 by BUDD ROGERS</small>
+      <small>&#169; 2015 by BUDD ROGERS</small>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import api from "@/api/api";
+import axios from "axios";
 export default {
   name: "App",
   components: {},
-
   data: () => ({
-    model: 0,
+    host: process.env.VUE_APP_API_URL.slice(0, -1),
     colors: ["primary", "secondary", "yellow darken-2", "red", "orange"],
-    tab: null,
+    tab: 0,
+    logos: [],
     items: [
       {
         name: "Home",
@@ -74,6 +80,16 @@ export default {
       },
     ],
   }),
+  created() {
+    this.getLogos();
+  },
+  methods: {
+    getLogos() {
+      axios.get(`${api.logos}?offset=0&limit=20`).then((data) => {
+        this.logos = data.data.results;
+      });
+    },
+  },
 };
 </script>
 <style scoped lang="scss">

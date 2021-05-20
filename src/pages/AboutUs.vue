@@ -1,7 +1,11 @@
 <template>
   <v-container>
     <v-layout>
-      <div align="justify" class="white--text" style="font-style: SourceHanSansCN-Regular !important;">
+      <div
+        align="justify"
+        class="white--text"
+        style="font-style: SourceHanSansCN-Regular !important;"
+      >
         <p style="text-indent: 30pt;">
           Budd Rogers Releasing Corporation was founded in 1949 as Rogers &
           Unger, by Budd Rogers, a motion picture executive for 51 years, who
@@ -36,9 +40,9 @@
     </v-layout>
     <br />
     <v-row>
-      <v-col cols="6" sm="3" v-for="i in images" :key="i">
+      <v-col cols="6" sm="3" v-for="(i, index) in images" :key="index">
         <v-img :src="require(`../assets/images/a${i.id}.jpg`)"> </v-img>
-        <p class="p1 white--text text-center align-center">{{i.name}}</p>
+        <p class="p1 white--text text-center align-center">{{ i.name }}</p>
       </v-col>
     </v-row>
   </v-container>

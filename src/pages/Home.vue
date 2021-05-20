@@ -1,19 +1,33 @@
 <template>
   <v-container class="pa-0 home" fluid>
     <video width="100%" height="400px;" controls>
-      <source :src="video_url" type="video/mp4" :key="videoKey"/>
+      <source :src="video_url" type="video/mp4" :key="videoKey" />
     </video>
     <br />
     <v-row class="mr-2 ml-2 mb-2">
       <v-sheet class="mx-auto" max-width="98%" color="rgba(255, 0, 0, 0)">
         <swiper class="swiper" ref="swiper" :options="swiperOption">
-          <swiper-slide :key="i" v-for="(banner,i) in movies">
-            <v-img :src="`${host}${banner.image_url}`" height="100"
-                  width="200" class="mr-2 ml-2 mt-4 mb-2" @click="showMovieTrailer(banner)"></v-img>
+          <swiper-slide :key="i" v-for="(banner, i) in movies">
+            <v-img
+              :src="`${host}${banner.image_url}`"
+              height="100"
+              width="200"
+              class="mr-2 ml-2 mt-4 mb-2"
+              contain
+              @click="showMovieTrailer(banner)"
+            ></v-img>
           </swiper-slide>
           <!-- <div class="swiper-pagination" slot="pagination"></div> -->
-          <div class="prev prev-change" slot="button-prev" @click="prev()"></div>
-          <div class="next next-change" slot="button-next" @click="next()"></div>
+          <div
+            class="prev prev-change"
+            slot="button-prev"
+            @click="prev()"
+          ></div>
+          <div
+            class="next next-change"
+            slot="button-next"
+            @click="next()"
+          ></div>
           <!-- <div class="swiper-button-next" slot="button-next" @click="next()"></div> -->
         </swiper>
       </v-sheet>
@@ -41,21 +55,19 @@ export default {
       swiperOption: {
         slidesPerView: 11,
         spaceBetween: 5,
-        direction: 'horizontal',
+        direction: "horizontal",
         navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
         },
         on: {
           resize: () => {
             this.$refs.swiper.$swiper.changeDirection(
-              window.innerWidth <= 960
-                ? 'vertical'
-                : 'horizontal'
-            )
-          }
-        }
-      }
+              window.innerWidth <= 960 ? "vertical" : "horizontal"
+            );
+          },
+        },
+      },
     };
   },
   created() {
@@ -68,20 +80,18 @@ export default {
       // };
       axios.get(api.movies).then((data) => {
         this.movies = data.data.results;
-        console.log(this.movies);
       });
     },
     showMovieTrailer(movie) {
       this.video_url = `${this.host}${movie.video_url}`;
-      this.videoKey = movie.id
-      console.log(this.video_url)
+      this.videoKey = movie.id;
     },
     prev() {
-			this.$refs.swiper.$swiper.slidePrev();
-		},
-		next() {
-			this.$refs.swiper.$swiper.slideNext();
-		}
+      this.$refs.swiper.$swiper.slidePrev();
+    },
+    next() {
+      this.$refs.swiper.$swiper.slideNext();
+    },
   },
 };
 </script>
@@ -92,12 +102,13 @@ export default {
   height: 50px;
   padding: 10px 12px 10px;
 }
-.prev, .next {
+.prev,
+.next {
   width: 30px;
   height: 30px;
   position: absolute;
   top: 52px;
-  background:rgb(0, 0, 0, 0.4);
+  background: rgb(0, 0, 0, 0.4);
   z-index: 999;
   border-radius: 30px;
 }
@@ -124,7 +135,7 @@ export default {
 <style lang="scss">
 .home {
   .theme--light.v-sheet {
-    background-color:none;
+    background-color: none;
   }
 }
 </style>

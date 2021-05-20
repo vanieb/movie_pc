@@ -1,21 +1,26 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="12" md="4" style="padding:0px;" v-for="i in artists" :key="i.title">
+      <v-col
+        cols="12"
+        md="4"
+        style="padding:0px;"
+        v-for="i in artists"
+        :key="i.title"
+      >
         <v-container>
-        <v-card flat class="rounded-0">
-          <v-img
-            :src="`${host}${i.image_url}`"
-            class="grey darken-4 rela"
-            contain
-          >
-            <div class="abs">{{i.description}}</div>
-          </v-img>
-
-          <v-card-title class="title align-center">
-            {{i.name}}
-          </v-card-title>
-        </v-card>
+          <v-card flat class="rounded-0">
+            <v-img
+              :src="`${host}${i.image_url}`"
+              class="grey darken-4 rela"
+              contain
+            >
+              <div class="abs">{{ i.description }}</div>
+            </v-img>
+            <v-card-title class="title align-center">
+              {{ i.name }}
+            </v-card-title>
+          </v-card>
         </v-container>
       </v-col>
     </v-row>
@@ -29,7 +34,7 @@ export default {
   data() {
     return {
       artists: {},
-      host: process.env.VUE_APP_API_URL.slice(0,-1),
+      host: process.env.VUE_APP_API_URL.slice(0, -1),
     };
   },
   created() {
@@ -41,7 +46,7 @@ export default {
         this.artists = response.data.results;
       });
     },
-  }
+  },
 };
 </script>
 <style scoped lang="scss">
@@ -62,7 +67,7 @@ export default {
   padding: 20px;
   font-size: 12px;
   z-index: 999;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 </style>

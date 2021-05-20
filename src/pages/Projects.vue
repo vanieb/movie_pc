@@ -120,7 +120,7 @@
                     class="text-center"
                     :style="item.confidential ? 'filter: blur(6.2px); ' : ''"
                   >
-                    {{ item.investment/1000000 }}/{{ item.return/1000000 }}
+                    {{ item.investment / 1000000 }}/{{ item.return / 1000000 }}
                   </td>
                   <td
                     width="9%"
@@ -275,23 +275,9 @@ export default {
   created() {
     this.$nextTick(() => {
       this.$refs.pulling.rebase();
-      // if (!this.query.created_at_before) {
-      //   this.submit();
-      // }
     });
-    // this.getMovies();
   },
   methods: {
-    // getMovies() {
-    //   // let headers = {
-    //   //   "Content-Type": "application/json;charset=UTF-8",
-    //   // };
-    //   axios.get(api.movies).then((response) => {
-    //     this.movies = response.data;
-    //     console.log(this.movies);
-    //   });
-    // },
-
     submit() {
       if (!$.compareQuery(this.query, this.$route.query)) {
         this.$refs.pulling.submit();

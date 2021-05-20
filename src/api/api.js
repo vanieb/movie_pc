@@ -12,4 +12,5 @@ export default {
   movies: `${member}movies`,
   movie: `${member}movie`,
   artists: `${member}artists`,
+  logos: `${member}logos`
 };
