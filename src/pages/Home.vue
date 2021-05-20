@@ -8,16 +8,17 @@
       <v-sheet class="mx-auto" max-width="98%" color="rgba(255, 0, 0, 0)">
         <swiper class="swiper" ref="swiper" :options="swiperOption">
           <swiper-slide :key="i" v-for="(banner, i) in movies">
-            <v-img
-              :src="`${host}${banner.image_url}`"
-              height="100"
-              width="200"
-              class="mr-2 ml-2 mt-4 mb-2"
-              contain
-              @click="showMovieTrailer(banner)"
-            ></v-img>
+            <a :href="banner.website_link" target="_blank">
+              <v-img
+                :src="`${host}${banner.image_url}`"
+                height="100"
+                width="200"
+                class="mr-2 ml-2 mt-4 mb-2"
+                contain
+                @click="showMovieTrailer(banner)"
+              ></v-img>
+            </a>
           </swiper-slide>
-          <!-- <div class="swiper-pagination" slot="pagination"></div> -->
           <div
             v-if="movies.length > 11"
             class="prev prev-change"
@@ -30,7 +31,6 @@
             slot="button-next"
             @click="next()"
           ></div>
-          <!-- <div class="swiper-button-next" slot="button-next" @click="next()"></div> -->
         </swiper>
       </v-sheet>
     </v-row>
@@ -78,7 +78,8 @@ export default {
     getMovies() {
       axios.get(api.movies).then((data) => {
         this.movies = data.data.results;
-        this.$refs.swiper.$swiper.params.slidesPerView = this.movies.length > 11 ? 11 : this.movies.length
+        this.$refs.swiper.$swiper.params.slidesPerView =
+          this.movies.length > 11 ? 11 : this.movies.length;
       });
     },
     showMovieTrailer(movie) {
