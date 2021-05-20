@@ -1,7 +1,21 @@
 <template>
   <v-container class="pa-0 home" fluid>
-    <video width="100%" height="400px;" controls>
-      <source :src="video_url" type="video/mp4" :key="videoKey" />
+    <video
+      width="100%"
+      height="400px;"
+      controls
+      :ref="`video`"
+      :src="video_url"
+      class="rel"
+      autoplay
+      muted="true"
+    >
+      <div v-if="loading" class="abs">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+      </div>
     </video>
     <br />
     <v-row class="mr-2 ml-2 mb-2">
@@ -12,10 +26,12 @@
               :src="`${host}${banner.image_url}`"
               height="100"
               width="200"
-              class="mr-2 ml-2 mt-4 mb-2"
+              class="mr-2 ml-2 mt-4 mb-2 rela"
               contain
-              @click="showMovieTrailer(banner)"
-            ></v-img>
+              @click="showMovieTrailer(banner, i)"
+              ><v-icon v-if="videoKey == i" dark class="abs">pause</v-icon>
+              <v-icon v-else dark class="abs">play_circle_filled</v-icon>
+            </v-img>
           </swiper-slide>
           <div
             v-if="movies.length > 11"
@@ -45,6 +61,7 @@ export default {
       host: process.env.VUE_APP_API_URL.slice(0, -1),
       images: [],
       movies: [],
+      loading: false,
       video_url: "",
       videoKey: 0,
       snackbar: {
@@ -78,11 +95,23 @@ export default {
         this.movies = data.data.results;
         this.$refs.swiper.$swiper.params.slidesPerView =
           this.movies.length > 11 ? 11 : this.movies.length;
+        this.video_url = `${this.host}${this.movies[0].video_url}`;
+        this.$nextTick(() => {
+          this.$refs["video"].autoplay = true;
+          this.$refs["video"].play();
+        });
       });
     },
-    showMovieTrailer(movie) {
+    async showMovieTrailer(movie, i) {
+      this.videoKey = i;
+      this.loading = true;
       this.video_url = `${this.host}${movie.video_url}`;
-      this.videoKey = movie.id;
+      this.$nextTick(() => {
+        this.$refs["video"].muted = false;
+        this.$refs["video"].play();
+        this.$refs["video"].autoplay = true;
+      });
+      this.loading = false;
     },
     prev() {
       this.$refs.swiper.$swiper.slidePrev();
@@ -93,6 +122,7 @@ export default {
   },
 };
 </script>
+
 <style scoped lang="scss">
 .form-title {
   background-color: #607d8b;
@@ -135,5 +165,24 @@ export default {
   .theme--light.v-sheet {
     background-color: none;
   }
+}
+.rela {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.abs {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 </style>
