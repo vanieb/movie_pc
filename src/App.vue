@@ -32,7 +32,9 @@
       <v-row class="align-center">
         <v-col cols="12" sm="2"> </v-col>
         <v-col v-for="i in logos" cols="12" sm="1" :key="i.id">
-          <v-img :src="`${host}${i.image_url}`" contain height="41"></v-img>
+          <a :href="i.website_link" target="_blank">
+            <v-img :src="`${host}${i.image_url}`" contain height="41"></v-img>
+          </a>
         </v-col>
       </v-row>
     </v-container>

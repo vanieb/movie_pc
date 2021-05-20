@@ -8,16 +8,14 @@
       <v-sheet class="mx-auto" max-width="98%" color="rgba(255, 0, 0, 0)">
         <swiper class="swiper" ref="swiper" :options="swiperOption">
           <swiper-slide :key="i" v-for="(banner, i) in movies">
-            <a :href="banner.website_link" target="_blank">
-              <v-img
-                :src="`${host}${banner.image_url}`"
-                height="100"
-                width="200"
-                class="mr-2 ml-2 mt-4 mb-2"
-                contain
-                @click="showMovieTrailer(banner)"
-              ></v-img>
-            </a>
+            <v-img
+              :src="`${host}${banner.image_url}`"
+              height="100"
+              width="200"
+              class="mr-2 ml-2 mt-4 mb-2"
+              contain
+              @click="showMovieTrailer(banner)"
+            ></v-img>
           </swiper-slide>
           <div
             v-if="movies.length > 11"
