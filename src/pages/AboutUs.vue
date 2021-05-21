@@ -3,33 +3,32 @@
     <v-layout>
       <div
         align="justify"
-        class="white--text"
-        style="font-style: SourceHanSansCN-Regular !important;"
+        class="white--text about"
       >
-        <p style="text-indent: 30pt;">
+        <p class="indent">
           Budd Rogers Releasing Corporation was founded in 1949 as Rogers &
           Unger, by Budd Rogers, a motion picture executive for 51 years, who
           was better known as executive vice president of Embassy Pictures
           Corporation and president of the Pathe - America Distributing Company
           Inc. in the 50s.
         </p>
-        <p style="text-indent: 30pt;">
+        <p class="indent">
           During the 50s, Budd Rogers Releasing Corporation had released several
           movies including The Dark Mirror, Magic Town, A Double Life, Secret
           Beyond the Door and Mr. Peabody and the Mermaid.
         </p>
-        <p style="text-indent: 30pt;">
+        <p class="indent">
           In 1962, Budd Rogers organized the Ultra Pictures Corporation and Budd
           Rogers Releasing Corporation was then merged into Melange Pictuures,
           subsidiary of Paramount Pictures, who was later merged into ViacomCBS
           group.
         </p>
-        <p style="text-indent: 30pt;">
+        <p class="indent">
           From 1994, Budd Rogers Releasing Corporation reformed its business
           into investmment. That strategic impulse is a common thread among the
           transformation in the film industry. in late 20th century.
         </p>
-        <p style="text-indent: 30pt;">
+        <p class="indent">
           Budd Rogers Releasing Corporation has till now invested in 23 movies,
           among which is life of Pi and Mission: Impossible are on top of the
           highest-grossing films. With average Return of investment of 37%, Budd
@@ -85,5 +84,11 @@ export default {
   opacity: 0.6;
   vertical-align: middle;
   padding: 20px;
+}
+.indent {
+  text-indent: 30pt;
+}
+.about {
+font-style: SourceHanSansCN-Regular !important;
 }
 </style>

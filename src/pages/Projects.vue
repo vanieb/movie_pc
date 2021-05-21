@@ -52,7 +52,12 @@
             class="white--text"
             :hide-default-footer="true"
             :items="querySet"
-            ><template v-slot:body="{ items }">
+          >
+            <template v-slot:header.investment="{ header }">
+              <span>{{ header.text }}</span
+              ><br />(in million USD)
+            </template>
+            <template v-slot:body="{ items }">
               <span v-if="!items">{{ items }}</span>
               <tbody>
                 <tr v-for="item in querySet" :key="item.id">
@@ -202,7 +207,7 @@ export default {
         },
         {
           sortable: false,
-          text: "Budget/Revenue (in Million USD)",
+          text: "Budget/Revenue",
           value: "investment",
           class: "white--text",
           align: "center",

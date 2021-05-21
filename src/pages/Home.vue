@@ -1,14 +1,13 @@
 <template>
   <v-container class="pa-0 home" fluid>
     <video
-      width="100%"
-      height="400px;"
       controls
       :ref="`video`"
       :src="video_url"
-      class="rel"
       autoplay
+      width="100%"
       muted="true"
+      class="videosize"
     >
       <div v-if="loading" class="abs">
         <v-progress-circular
@@ -18,36 +17,41 @@
       </div>
     </video>
     <br />
-    <v-row class="mr-2 ml-2 mb-2">
-      <v-sheet class="mx-auto" max-width="98%" color="rgba(255, 0, 0, 0)">
-        <swiper class="swiper" ref="swiper" :options="swiperOption">
-          <swiper-slide :key="i" v-for="(banner, i) in movies">
-            <v-img
-              :src="`${host}${banner.image_url}`"
-              height="100"
-              width="200"
-              class="mr-2 ml-2 mt-4 mb-2 rela"
-              contain
-              @click="showMovieTrailer(banner, i)"
-              ><v-icon v-if="videoKey == i" dark class="abs">pause</v-icon>
-              <v-icon v-else dark class="abs">play_circle_filled</v-icon>
-            </v-img>
-          </swiper-slide>
-          <div
-            v-if="movies.length > 11"
-            class="prev prev-change"
-            slot="button-prev"
-            @click="prev()"
-          ></div>
-          <div
-            v-if="movies.length > 11"
-            class="next next-change"
-            slot="button-next"
-            @click="next()"
-          ></div>
-        </swiper>
-      </v-sheet>
-    </v-row>
+    <v-flex align="center" justify="center">
+      <v-row class="mr-2 ml-2 mb-2 ">
+        <v-sheet class="mx-auto" max-width="98%" color="rgba(255, 0, 0, 0)">
+          <swiper class="swiper" ref="swiper" :options="swiperOption">
+            <swiper-slide :key="i" v-for="(banner, i) in movies">
+              <v-img
+                :src="`${host}${banner.image_url}`"
+                height="100"
+                width="200"
+                class="mr-2 ml-2 mt-4 mb-2 rela"
+                contain
+                @mouseover="videoKey = i"
+                @mouseleave="videoKey = undefined"
+                @click="showMovieTrailer(banner, i)"
+                ><v-icon v-show="videoKey == i" dark class="abs"
+                  >play_circle_filled</v-icon
+                >
+              </v-img>
+            </swiper-slide>
+            <div
+              v-if="movies.length > 11"
+              class="prev prev-change"
+              slot="button-prev"
+              @click="prev()"
+            ></div>
+            <div
+              v-if="movies.length > 11"
+              class="next next-change"
+              slot="button-next"
+              @click="next()"
+            ></div>
+          </swiper>
+        </v-sheet>
+      </v-row>
+    </v-flex>
   </v-container>
 </template>
 <script>
@@ -184,5 +188,17 @@ export default {
   z-index: 999;
   background: rgba(0, 0, 0, 0.2);
   text-align: center;
+}
+@media screen and (min-height: 1025px) and (max-width: 1280px) {
+  .container {
+    height: 400px;
+    width: 100%;
+  }
+}
+.videosize {
+  display: flex;
+  height: 50vh;
+  max-width: 100%;
+  max-height: 100%;
 }
 </style>

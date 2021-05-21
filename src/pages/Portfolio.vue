@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid style="padding:0px !important; ">
+  <v-container fluid class="pa-0">
     <v-img src="../assets/images/i1.png" width="auto" height="auto;"></v-img>
   </v-container>
 </template>

@@ -24,9 +24,8 @@
         </v-tabs>
       </v-container>
     </v-app-bar>
-    <br />
     <v-main>
-      <router-view></router-view>
+      <router-view ></router-view>
     </v-main>
     <v-container>
       <v-row class="align-center">
@@ -38,8 +37,12 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-footer class="justify-center white--text" color="#032230">
-      &#169; 2015 by BUDD ROGERS
+    <v-footer
+      class="justify-center white--text"
+      color="#032230"
+      style="line-height: 30px;"
+    >
+      <small>&#169; 2015 by BUDD ROGERS</small>
     </v-footer>
   </v-app>
 </template>
