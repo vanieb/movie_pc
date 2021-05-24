@@ -20,7 +20,12 @@
     <v-flex align="center" justify="center">
       <v-row class="mr-2 ml-2 mb-2 ">
         <v-sheet class="mx-auto" max-width="98%" color="rgba(255, 0, 0, 0)">
-          <swiper class="swiper" ref="swiper" :options="swiperOption">
+          <swiper
+            class="swiper"
+            ref="swiper"
+            :options="swiperOption"
+            v-if="movies.length > 11"
+          >
             <swiper-slide :key="i" v-for="(banner, i) in movies">
               <v-img
                 :src="`${host}${banner.image_url}`"
@@ -37,18 +42,35 @@
               </v-img>
             </swiper-slide>
             <div
-              v-if="movies.length > 11"
               class="prev prev-change"
               slot="button-prev"
               @click="prev()"
             ></div>
             <div
-              v-if="movies.length > 11"
               class="next next-change"
               slot="button-next"
               @click="next()"
             ></div>
           </swiper>
+          <div v-else>
+            <v-row>
+              <v-col :key="i" v-for="(banner, i) in movies">
+                <v-img
+                  :src="`${host}${banner.image_url}`"
+                  height="100"
+                  width="100"
+                  class="mt-4 mb-2 rela"
+                  contain
+                  @mouseover="videoKey = i"
+                  @mouseleave="videoKey = undefined"
+                  @click="showMovieTrailer(banner, i)"
+                  ><v-icon v-show="videoKey == i" dark class="abs"
+                    >play_circle_filled</v-icon
+                  >
+                </v-img>
+              </v-col>
+            </v-row>
+          </div>
         </v-sheet>
       </v-row>
     </v-flex>
@@ -76,6 +98,7 @@ export default {
       swiperOption: {
         spaceBetween: 5,
         direction: "horizontal",
+        slidesPerView: 11,
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
@@ -94,11 +117,9 @@ export default {
     this.getMovies();
   },
   methods: {
-    getMovies() {
-      axios.get(api.movies).then((data) => {
+    async getMovies() {
+      await axios.get(api.movies).then((data) => {
         this.movies = data.data.results;
-        this.$refs.swiper.$swiper.params.slidesPerView =
-          this.movies.length > 11 ? 11 : this.movies.length;
         this.video_url = `${this.host}${this.movies[0].video_url}`;
         this.$nextTick(() => {
           this.$refs["video"].autoplay = true;
@@ -188,12 +209,6 @@ export default {
   z-index: 999;
   background: rgba(0, 0, 0, 0.2);
   text-align: center;
-}
-@media screen and (min-height: 1025px) and (max-width: 1280px) {
-  .container {
-    height: 400px;
-    width: 100%;
-  }
 }
 .videosize {
   display: flex;

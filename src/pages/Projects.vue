@@ -87,7 +87,13 @@
                     :style="item.confidential ? 'filter: blur(6.2px); ' : ''"
                   >
                     <v-row v-if="item.awards.length > 0">
-                      <v-col v-for="i in 4" :key="i" cols="12" sm="3">
+                      <v-col
+                        v-for="i in item.awards"
+                        :key="i"
+                        cols="12"
+                        :sm="item.awards.length <= 3 ? '' : 3"
+                        class="align-center"
+                      >
                         <v-img
                           :src="require(`../assets/images/a${i}.png`)"
                           height="20"
