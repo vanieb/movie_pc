@@ -65,7 +65,7 @@
                     width="1%"
                     :style="item.confidential ? 'filter: blur(6.2px); ' : ''"
                   >
-                    <v-img :src="`${host}${item.image_url}`" width="80"></v-img>
+                    <v-img :src="`${host}${item.image_url}`" width="80" class="mb-1 mt-1"></v-img>
                   </td>
                   <td
                     width="15%"
@@ -75,8 +75,8 @@
                     <br />
                     <small>
                       Director: {{ item.director }}<br />
-                      <span v-if="item.actors.length > 20"
-                        >Artists: {{ item.actors | truncate(20, "...") }}</span
+                      <span v-if="item.actors.length > 85"
+                        >Artists: {{ item.actors | truncate(85, "...") }}</span
                       >
                       <span v-else>Artists: {{ item.actors }}</span>
                     </small>
