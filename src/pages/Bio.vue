@@ -14,6 +14,7 @@
               :src="`${host}${i.image_url}`"
               class="grey darken-4 rela"
               contain
+              height="auto"
             >
               <div class="abs">{{ i.description }}</div>
             </v-img>

@@ -29,8 +29,8 @@
             <swiper-slide :key="i" v-for="(banner, i) in movies">
               <v-img
                 :src="`${host}${banner.image_url}`"
-                height="100"
-                width="200"
+                height="150"
+                width="150"
                 class="mr-2 ml-2 mt-4 mb-2 rela"
                 contain
                 @mouseover="videoKey = i"
@@ -57,8 +57,8 @@
               <v-col :key="i" v-for="(banner, i) in movies">
                 <v-img
                   :src="`${host}${banner.image_url}`"
-                  height="100"
-                  width="100"
+                  height="150"
+                  width="150"
                   class="mt-4 mb-2 rela"
                   contain
                   @mouseover="videoKey = i"
@@ -160,7 +160,7 @@ export default {
   width: 30px;
   height: 30px;
   position: absolute;
-  top: 52px;
+  top: 72px;
   background: rgb(0, 0, 0, 0.4);
   z-index: 999;
   border-radius: 30px;

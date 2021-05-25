@@ -65,7 +65,11 @@
                     width="1%"
                     :style="item.confidential ? 'filter: blur(6.2px); ' : ''"
                   >
-                    <v-img :src="`${host}${item.image_url}`" width="80" class="mb-1 mt-1"></v-img>
+                    <v-img
+                      :src="`${host}${item.image_url}`"
+                      width="80"
+                      class="ma-1"
+                    ></v-img>
                   </td>
                   <td
                     width="15%"
