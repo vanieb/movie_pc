@@ -1,10 +1,10 @@
 <template>
-  <v-container>
+  <v-container fill-height>
     <v-row>
       <v-col
         cols="12"
         md="4"
-        style="padding:0px;"
+        style="padding:0px; "
         v-for="i in artists"
         :key="i.title"
       >
@@ -69,6 +69,6 @@ export default {
   font-size: 12px;
   z-index: 999;
   background: rgba(0, 0, 0, 0.2);
-  text-align: center;
+  text-align: left;
 }
 </style>

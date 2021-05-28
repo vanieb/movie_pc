@@ -3,20 +3,20 @@
     <v-layout>
       <v-row>
         <v-col cols="12" md="2">
-          <v-card color="#022C3F" @click="filterMovies('ongoing')">
-            <v-card-title class="white--text">Ongoing Projects</v-card-title>
-            <v-card-text class="white--text"
-              >Ongoing projects: 3 movies in 2021, projected annualized ROI
-              38%</v-card-text
-            >
-          </v-card>
-          <br />
-          <v-spacer></v-spacer>
           <v-card color="#022C3F" @click="filterMovies('previous')">
             <v-card-title class="white--text">Previous Projects</v-card-title>
             <v-card-text class="white--text"
               >Previous projects: 27 years, 43 movies, annualized ROI 31.3%, $7
               billion investment income</v-card-text
+            >
+          </v-card>
+          <br />
+          <v-spacer></v-spacer>
+          <v-card color="#022C3F" @click="filterMovies('ongoing')">
+            <v-card-title class="white--text">Ongoing Projects</v-card-title>
+            <v-card-text class="white--text"
+              >Ongoing projects: 3 movies in 2021, projected annualized ROI
+              38%</v-card-text
             >
           </v-card>
         </v-col>
@@ -66,6 +66,7 @@
                     :style="item.confidential ? 'filter: blur(6.2px); ' : ''"
                   >
                     <v-img
+                      lazy-src="https://picsum.photos/id/11/10/6"
                       :src="`${host}${item.image_url}`"
                       width="80"
                       class="ma-1"

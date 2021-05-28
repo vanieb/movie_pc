@@ -33,6 +33,7 @@
                 width="150"
                 class="mr-2 ml-2 mt-4 mb-2 rela"
                 contain
+                lazy-src="https://picsum.photos/id/11/10/6"
                 @mouseover="videoKey = i"
                 @mouseleave="videoKey = undefined"
                 @click="showMovieTrailer(banner, i)"
@@ -61,6 +62,7 @@
                   width="150"
                   class="mt-4 mb-2 rela"
                   contain
+                  lazy-src="https://picsum.photos/id/11/10/6"
                   @mouseover="videoKey = i"
                   @mouseleave="videoKey = undefined"
                   @click="showMovieTrailer(banner, i)"
