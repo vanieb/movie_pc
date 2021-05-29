@@ -239,10 +239,13 @@ export default {
         },
       ],
       sortOptions: [
-        { text: "Title (Ascending)", value: 1 },
-        { text: "Title (Descending)", value: 2 },
-        { text: "Year (Ascending)", value: 3 },
-        { text: "Year (Descending)", value: 4 },
+        { text: "Highest Revenue", value: 1 },
+        { text: "Annualized Return on Investment (ROI)", value: 2 },
+        { text: "IMDB Rating (Ascending)", value: 3 },
+        { text: "Title (Ascending)", value: 4 },
+        { text: "Title (Descending)", value: 5 },
+        { text: "Year (Ascending)", value: 6 },
+        { text: "Year (Descending)", value: 7 },
       ],
       award: ["1", "2", "3", "4"],
       loading: true,
@@ -273,15 +276,24 @@ export default {
     },
     sort(newObj) {
       if (newObj == 1) {
-        this.query.sort_by = "title";
+        this.query.sort_by = "returnValue";
         this.query.is_ascending = true;
       } else if (newObj == 2) {
-        this.query.sort_by = "title";
-        this.query.is_ascending = false;
+        this.query.sort_by = "returnRate";
+        this.query.is_ascending = true;
       } else if (newObj == 3) {
-        this.query.sort_by = "year";
+        this.query.sort_by = "imdbScore";
         this.query.is_ascending = true;
       } else if (newObj == 4) {
+        this.query.sort_by = "title";
+        this.query.is_ascending = true;
+      } else if (newObj == 5) {
+        this.query.sort_by = "title";
+        this.query.is_ascending = false;
+      } else if (newObj == 6) {
+        this.query.sort_by = "year";
+        this.query.is_ascending = true;
+      } else if (newObj == 7) {
         this.query.sort_by = "year";
         this.query.is_ascending = false;
       }

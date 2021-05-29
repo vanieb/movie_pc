@@ -29,11 +29,11 @@
             <swiper-slide :key="i" v-for="(banner, i) in movies">
               <v-img
                 :src="`${host}${banner.image_url}`"
-                height="150"
+                max-height="150"
                 width="150"
                 class="mr-2 ml-2 mt-4 mb-2 rela"
                 contain
-                lazy-src="https://picsum.photos/id/11/10/6"
+                :lazy-src="require(`../assets/images/default.jpeg`)"
                 @mouseover="videoKey = i"
                 @mouseleave="videoKey = undefined"
                 @click="showMovieTrailer(banner, i)"
@@ -58,11 +58,11 @@
               <v-col :key="i" v-for="(banner, i) in movies">
                 <v-img
                   :src="`${host}${banner.image_url}`"
-                  height="150"
-                  width="150"
+                  max-height="150"
+                  width="110"
                   class="mt-4 mb-2 rela"
                   contain
-                  lazy-src="https://picsum.photos/id/11/10/6"
+                  :lazy-src="require(`../assets/images/default.jpeg`)"
                   @mouseover="videoKey = i"
                   @mouseleave="videoKey = undefined"
                   @click="showMovieTrailer(banner, i)"
@@ -120,8 +120,8 @@ export default {
   },
   methods: {
     async getMovies() {
-      await axios.get(api.movies).then((data) => {
-        this.movies = data.data.results;
+      await axios.get(api.homepage).then((data) => {
+        this.movies = data.data;
         this.video_url = `${this.host}${this.movies[0].video_url}`;
         this.$nextTick(() => {
           this.$refs["video"].autoplay = true;
