@@ -3,49 +3,58 @@
     <v-layout>
       <v-row>
         <v-col cols="12" md="2">
-          <v-card color="#022C3F" @click="filterMovies('previous')">
-            <v-card-title class="white--text">Previous Projects</v-card-title>
-            <v-card-text class="white--text"
+          <v-card color="#022C3F" @click="filterMovies('previous')" dark>
+            <v-card-title>Previous Projects</v-card-title>
+            <v-card-text
               >Previous projects: 27 years, 43 movies, annualized ROI 31.3%, $7
               billion investment income</v-card-text
             >
           </v-card>
           <br />
           <v-spacer></v-spacer>
-          <v-card color="#022C3F" @click="filterMovies('ongoing')">
-            <v-card-title class="white--text">Ongoing Projects</v-card-title>
-            <v-card-text class="white--text"
+          <v-card color="#022C3F" @click="filterMovies('ongoing')" dark>
+            <v-card-title>Ongoing Projects</v-card-title>
+            <v-card-text
               >Ongoing projects: 3 movies in 2021, projected annualized ROI
               38%</v-card-text
             >
           </v-card>
         </v-col>
         <v-col cols="12" md="10">
-          <v-layout class="justify-end">
-            <div style="width:225px;" class="mr-2">
-              <v-select
-                color="white"
-                dark
-                item-name="text"
-                item-value="value"
-                :items="sortOptions"
-                v-model="sort"
-                hide-details="true"
-                placeholder="Sort"
-                outlined
-                dense
-              >
-                <template slot="selection" slot-scope="data">
-                  <span class="ml-3">{{ data.item.text }}</span>
-                </template>
-                <template slot="item" slot-scope="data">
-                  <span class="ml-3">{{ data.item.text }}</span>
-                </template>
-              </v-select>
-            </div>
-            <v-btn dark :loading="loading" @click="clearAll">
-              Clear
-            </v-btn>
+          <v-layout>
+            <v-layout class="justify-start" v-if="showTitle">
+              <v-card-title class="white--text">{{
+                query.type == "ongoing"
+                  ? "Ongoing Projects"
+                  : "Previous Projects"
+              }}</v-card-title>
+            </v-layout>
+            <v-layout class="justify-end">
+              <div style="width:350px;" class="mr-2">
+                <v-select
+                  color="white"
+                  dark
+                  item-name="text"
+                  item-value="value"
+                  :items="sortOptions"
+                  v-model="sort"
+                  hide-details="true"
+                  placeholder="Sort"
+                  outlined
+                  dense
+                >
+                  <template slot="selection" slot-scope="data">
+                    <span class="ml-3">{{ data.item.text }}</span>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <span class="ml-3">{{ data.item.text }}</span>
+                  </template>
+                </v-select>
+              </div>
+              <v-btn dark :loading="loading" @click="clearAll">
+                Clear
+              </v-btn>
+            </v-layout>
           </v-layout>
           <v-data-table
             :headers="headers"
@@ -91,7 +100,10 @@
                     class="text-center align-center"
                     :style="item.confidential ? 'filter: blur(6.2px); ' : ''"
                   >
-                    <v-row v-if="item.awards.length > 0">
+                    <span v-if="item.type == 'ongoing'">
+                      Ongoing
+                    </span>
+                    <v-row v-else-if="item.awards.length > 0">
                       <v-col
                         v-for="i in item.awards"
                         :key="i"
@@ -123,12 +135,20 @@
                     <span v-else>No Award</span>
                   </td>
                   <td width="10%" class="text-center">
-                    <span
-                      :style="item.confidential ? 'filter: blur(6.2px); ' : ''"
-                      >{{ item.imdb_score }}</span
-                    >
                     <span v-if="item.confidential">
                       Confidential
+                    </span>
+                    <span v-else>
+                      <span v-if="item.type == 'ongoing'">
+                        Ongoing
+                      </span>
+                      <span
+                        v-else
+                        :style="
+                          item.confidential ? 'filter: blur(6.2px); ' : ''
+                        "
+                        >{{ item.imdb_score }}</span
+                      >
                     </span>
                   </td>
                   <td
@@ -249,6 +269,7 @@ export default {
       ],
       award: ["1", "2", "3", "4"],
       loading: true,
+      showTitle: false,
       querySet: [],
       moviesApi: api.movies,
       snackbar: {
@@ -313,6 +334,7 @@ export default {
     },
     filterMovies(type) {
       this.query.type = type;
+      this.showTitle = true;
       this.submit();
     },
     showMovieTrailer(movie) {
@@ -325,6 +347,7 @@ export default {
     clearAll() {
       this.sort = "";
       this.query = {};
+      this.showTitle = false;
       this.$nextTick(() => {
         this.$refs.pulling.submit();
       });
