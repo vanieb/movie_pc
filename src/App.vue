@@ -28,14 +28,13 @@
       <router-view ></router-view>
     </v-main>
     <v-container>
-      <v-row class="align-center">
-        <v-col cols="12" sm="2"> </v-col>
-        <v-col v-for="i in logos" cols="12" sm="1" :key="i.id">
+      <v-layout class="justify-center">
+        <v-col v-for="i in logos" cols="12" sm="1" :key="i.id" style="padding-right:0px; padding-left: 0px;">
           <a :href="i.website_link" target="_blank">
-            <v-img :src="`${host}${i.image_url}`" contain height="41"></v-img>
+            <v-img :src="`${host}${i.image_url}`" contain height="41" ></v-img>
           </a>
         </v-col>
-      </v-row>
+      </v-layout>
     </v-container>
     <v-footer
       class="justify-center white--text"

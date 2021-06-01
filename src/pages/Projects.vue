@@ -30,7 +30,7 @@
               }}</v-card-title>
             </v-layout>
             <v-layout class="justify-end">
-              <div style="width:350px;" class="mr-2">
+              <div style="width:400px;" class="mr-2">
                 <v-select
                   color="white"
                   dark
@@ -41,10 +41,15 @@
                   hide-details="true"
                   placeholder="Sort"
                   outlined
+                  :disabled="loading"
                   dense
+                  @input="sortFunc"
                 >
                   <template slot="selection" slot-scope="data">
-                    <span class="ml-3">{{ data.item.text }}</span>
+                    <v-icon v-if="showIcon" :disabled="loading">{{
+                      icon
+                    }}</v-icon
+                    ><span class="ml-3">{{ data.item.text }}</span>
                   </template>
                   <template slot="item" slot-scope="data">
                     <span class="ml-3">{{ data.item.text }}</span>
@@ -259,26 +264,28 @@ export default {
         },
       ],
       sortOptions: [
-        { text: "Highest Revenue", value: 1 },
+        { text: "Revenue", value: 1 },
         { text: "Annualized Return on Investment (ROI)", value: 2 },
-        { text: "IMDB Rating (Ascending)", value: 3 },
-        { text: "Title (Ascending)", value: 4 },
-        { text: "Title (Descending)", value: 5 },
-        { text: "Year (Ascending)", value: 6 },
-        { text: "Year (Descending)", value: 7 },
+        { text: "IMDB Rating", value: 3 },
+        { text: "Title", value: 4 },
+        { text: "Year", value: 5 },
       ],
       award: ["1", "2", "3", "4"],
       loading: true,
       showTitle: false,
+      showIcon: false,
       querySet: [],
       moviesApi: api.movies,
+      icon: "arrow_upward",
       snackbar: {
         color: "",
         text: "",
         show: false,
       },
       sort: "",
-      query: {},
+      query: {
+        is_ascending: true,
+      },
     };
   },
   filters: {
@@ -295,33 +302,9 @@ export default {
       },
       deep: true,
     },
-    sort(newObj) {
-      if (newObj == 1) {
-        this.query.sort_by = "returnValue";
-        this.query.is_ascending = true;
-      } else if (newObj == 2) {
-        this.query.sort_by = "returnRate";
-        this.query.is_ascending = true;
-      } else if (newObj == 3) {
-        this.query.sort_by = "imdbScore";
-        this.query.is_ascending = true;
-      } else if (newObj == 4) {
-        this.query.sort_by = "title";
-        this.query.is_ascending = true;
-      } else if (newObj == 5) {
-        this.query.sort_by = "title";
-        this.query.is_ascending = false;
-      } else if (newObj == 6) {
-        this.query.sort_by = "year";
-        this.query.is_ascending = true;
-      } else if (newObj == 7) {
-        this.query.sort_by = "year";
-        this.query.is_ascending = false;
-      }
-      this.$refs.pulling.submit();
-    },
   },
   created() {
+    this.setQueryAll();
     this.$nextTick(() => {
       this.$refs.pulling.rebase();
     });
@@ -342,6 +325,35 @@ export default {
     },
     setQueryAll() {
       this.type = this.$route.query.type;
+      if (this.$route.query.sort_by === "returnValue") {
+        this.sort = 1;
+      } else if (this.$route.query.sort_by === "returnRate") {
+        this.sort = 2;
+      } else if (this.$route.query.sort_by === "imdbScore") {
+        this.sort = 3;
+      } else if (this.$route.query.sort_by === "title") {
+        this.sort = 4;
+      } else if (this.$route.query.sort_by === "year") {
+        this.sort = 5;
+      }
+      if (
+        this.$route.query.is_ascending === true ||
+        this.$route.query.is_ascending === "true"
+      ) {
+        this.icon = "arrow_upward";
+        this.showIcon = true;
+      } else {
+        this.icon = "arrow_downward";
+        this.showIcon = true;
+      }
+      // this.sort =
+      // this.icon =
+      //   this.$route.query.is_ascending === true ||
+      //   this.$route.query.is_ascending === false ||
+      //   this.$route.query.is_ascending === "true" ||
+      //   this.$route.query.is_ascending === "false"
+      //     ? "arrow_upward"
+      //     : "arrow_downward";
       this.query = Object.assign({}, this.$route.query);
     },
     clearAll() {
@@ -358,6 +370,39 @@ export default {
     },
     queryParam(query) {
       this.query = Object.assign(this.query, query);
+    },
+    sortFunc(item) {
+      this.showIcon = true;
+      if (this.oldItem === item) {
+        if (
+          this.query.is_ascending == "true" ||
+          this.query.is_ascending == true
+        ) {
+          this.query.is_ascending = false;
+        } else if (
+          this.query.is_ascending == "false" ||
+          this.query.is_ascending == false
+        ) {
+          this.query.is_ascending = true;
+        }
+        this.icon = this.query.is_ascending ? "arrow_upward" : "arrow_downward";
+      } else {
+        this.icon = this.query.is_ascending ? "arrow_upward" : "arrow_downward";
+        this.query.is_ascending = true;
+        if (item == 1) {
+          this.query.sort_by = "returnValue";
+        } else if (item == 2) {
+          this.query.sort_by = "returnRate";
+        } else if (item == 3) {
+          this.query.sort_by = "imdbScore";
+        } else if (item == 4) {
+          this.query.sort_by = "title";
+        } else if (item == 5) {
+          this.query.sort_by = "year";
+        }
+      }
+      this.$refs.pulling.submit();
+      this.oldItem = item;
     },
   },
 };
